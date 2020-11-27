@@ -7,13 +7,13 @@
 
 En 2020 las tres más grandes cervecerías de Latinoamerica - Grupo Modelo en México, Bavaria en Colombia y Backus en Perú - con la coordinación de AB InBev han organizado un Hackathon de Ciencia de Datos, Brewing Data Cup, para buscar soluciones innovadoras a problemas reales de negocio en función del país de los participantes.
 
-![](img/BDC2020_logo2.png)
+[![](img/BDC2020_logo2.png)](https://www.brewingdatacup.com)
 
 ## Problema
 
 El reto para los participantes en **México** es de **logística**, con el objetivo de dividir un centro de distribución en 6 territorios de reparto a través de un modelo de optimización que busque minimizar la distancia recorrida, con diversas restricciones: balancear los territorios por volumen sin exceder la capacidad de reparto por día, los territorios deben estar en función de la frecuencia de visita al cliente, y territorios balanceados con exactamente el mismo número de clientes.
 
-[Ingresa a la página oficial en este link](https://www.brewingdatacup.com) para ver más detalle sobre el el hackathon Brewing Data Cup 2020.
+[Ingresa aquí a la página oficial](https://www.brewingdatacup.com) para ver más detalle sobre el *Brewing Data Cup 2020*.
 
 ## ¿Qué enviar?
 
