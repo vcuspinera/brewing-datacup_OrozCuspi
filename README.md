@@ -11,7 +11,7 @@ En 2020 las tres más grandes cervecerías de Latinoamerica - Grupo Modelo en M�
 
 ## Problema
 
-El reto para los participantes en **México** es de **logística**, con el objetivo de dividir un centro de distribución en 6 territorios de reparto a través de un modelo de optimización que busque minimizar la distancia recorrida, con diversas restricciones: balancear los territorios por volumen sin exceder la capacidad de reparto por día, los territorios deben estar en función de la frecuencia de visita al cliente, y territorios balanceados con exactamente el mismo número de clientes.
+El reto para los participantes en **México** es de **logística**, con el objetivo de dividir un centro de distribución en seis territorios de reparto a través de un modelo de optimización que busque minimizar la distancia recorrida, con diversas restricciones: balancear los territorios por volumen sin exceder la capacidad de reparto por día, los territorios deben estar en función de la frecuencia de visita al cliente, y territorios balanceados con exactamente el mismo número de clientes.
 
 [Ingresa aquí a la página oficial](https://www.brewingdatacup.com) para ver más detalle sobre el *Brewing Data Cup 2020*.
 
