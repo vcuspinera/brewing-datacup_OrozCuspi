@@ -1,14 +1,19 @@
-# Reto México
+# Brewing Data Cup 2020
+**Equipo**: OrozCuspi Data_MX  
+**Autores**: [Felipe Orozco](https://github.com/felipeoh) y [Victor Cuspinera](https://github.com/vcuspinera)  
 
-En AB InBev queremos encontrar territorios óptimos de distribución de nuestros productos, donde cada zona o territorio  será un día especifico de entrega que concentrará  toda la capacidad logística disponible, provocando una  reducción de kilómetros recorridos, mejorando los tiempos de entrega y potencializando los niveles de servicio.
 
-## ¿Qué construir?
+## Introducción
 
-El objetivo es  dividir  un centro de distribución en 6 territorios óptimos, donde cada territorio debe garantizar que la distancia recorrida sea mínima , que no se exceda la capacidad de reparto por día (Zonas balanceadas por volumen), Los territorios deben estar en función de la frecuencia de visita al cliente, Todos los territorios deben tener una misma cantidad de clientes (Zonas balanceadas por número de paradas).
+En 2020 las tres más grandes cervecerías de Latinoamerica - Grupo Modelo en México, Bavaria en Colombia y Backus en Perú - con la coordinación de AB InBev han organizado un Hackathon de Ciencia de Datos, Brewing Data Cup, para buscar soluciones innovadoras a problemas reales de negocio en función del país de los participantes.
 
-Para esto deberás crear Un modelo de optimización para encontrar territorios de reparto donde:  la distancia recorrida sea mínima, el reparto sea viable con la capacidad logística actual, y el número de clientes por territorio sea exactamente el mismo garantizando la mejora de los niveles de servicio. ​
+![](img/BDC2020_logo1.png)
 
-![contexto](img/contexto.png)
+## Problema
+
+El reto para los participantes en **México** es de **logística**, con el objetivo de dividir un centro de distribución en 6 territorios de reparto a través de un modelo de optimización que busque minimizar la distancia recorrida, con diversas restricciones: balancear los territorios por volumen sin exceder la capacidad de reparto por día, los territorios deben estar en función de la frecuencia de visita al cliente, y territorios balanceados con exactamente el mismo número de clientes.
+
+[Ingresa a la página oficial en este link](https://www.brewingdatacup.com) para ver más detalle sobre el el hackathon Brewing Data Cup 2020.
 
 ## ¿Qué enviar?
 
@@ -17,3 +22,4 @@ Para esto deberás crear Un modelo de optimización para encontrar territorios d
 3. Una presentación a detalle de la metodología usada para resolver el problema, el modelo aplicado,  consideraciones y resultados obtenidos. (Máximo 5 diapositivas).​
 
 ![entregable](img/test-dataset.png)
+
