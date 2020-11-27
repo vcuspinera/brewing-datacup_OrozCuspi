@@ -7,7 +7,7 @@
 
 En 2020 las tres más grandes cervecerías de Latinoamerica - Grupo Modelo en México, Bavaria en Colombia y Backus en Perú - con la coordinación de AB InBev han organizado un Hackathon de Ciencia de Datos, Brewing Data Cup, para buscar soluciones innovadoras a problemas reales de negocio en función del país de los participantes.
 
-![](img/BDC2020_logo1.png)
+![](img/BDC2020_logo2.png)
 
 ## Problema
 
