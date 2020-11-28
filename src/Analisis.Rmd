@@ -1,0 +1,63 @@
+---
+title: "Brewing Data Cup 2020 - Reto México"
+author: "Equipo OrozCuspi Data_Mx: Felipe Orozco & Victor Cuspinera"
+date: "29/11/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problema
+
+El reto para los participantes en México es de logística, específicamente para **optimizar ruta**, con el objetivo de dividir un centro de distribución en seis territorios de reparto a través de un modelo de optimización que busque minimizar la distancia recorrida, con diversas restricciones: balancear los territorios por volumen sin exceder la capacidad de reparto por día, los territorios deben estar en función de la frecuencia de visita al cliente, y territorios balanceados con exactamente el mismo número de clientes.
+
+## Análisis
+
+Inicialmente cargamos librerías y base de datos.
+```{r load, echo=FALSE, message=FALSE}
+# load libraries
+library(tidyverse)
+library(ggrepel)
+# library(GA)
+library(Imap)
+source("Geodistance_function.R")
+
+# load database
+data <- read.csv("../data/ubicaciones.csv")
+data %>% head()
+```
+
+Calculamos distancias entre puntos
+```{r}
+# distancias <- dist()
+	#dist(data[ , 2:3], upper = T, diag = T) %>% as.matrix()
+# distancias
+# data[,5:6]
+# gdist(lon.1 =-98.21238, 
+      # lat.1 =20.50605, 
+      # lon.2 =-98.22125, 
+      # lat.2 =20.45813, 
+      # units="nm")
+
+# data[ , 5:6]
+# gdist.total(data[ , 5:6], units = "km", segments = TRUE, digits = 10)
+# dist(data[1:8, 5:6], method = "euclidean", diag = TRUE, upper = TRUE)
+# gdist(data[1 , 5], data[1 , 6], data[2 , 5], data[2 , 6], units = "km", a = 6378137.0, b = 6356752.3142, verbose = FALSE)
+
+
+
+# función pre-hecha
+xxx <- geo_distance(data[ , 5:6])
+xxx[1:8, 1:8]
+
+
+```
+
+## Referencias
+
+Arga Adyatama. (2020). "Capacitated Vehicle Routing Problem (CVRP) with Nearest Neighbour and Genetic Algorithm". RPubs. Consultado el 2020-11-27. Link: https://rpubs.com/Argaadya/cvrp
+
+Arga Adyatama. (2020). "Machine Learning Implementation in Manufacturing Industry". GitHub repository. Consultado el 2020-11-27. Link: https://github.com/Argaadya/manufacturing
+
