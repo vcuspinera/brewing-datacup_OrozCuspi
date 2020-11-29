@@ -47,6 +47,17 @@ gdist(lon.1 =-98.21238,
       lat.2 =20.45813, 
       units="km")
 
+#**********************#
+#Centroid
+#**********************#
 
+install.packages("geosphere")
+library(geosphere)
 
+#El centroide se calcula a partir de Longitud/ Latitud
+ubicaciones.coord<-ubicaciones[,c("lon","lat")]
+centroide<-centroid(ubicaciones.coord)
+centroide
 
+ubicaciones<-rbind(ubicaciones,c(9999,"CEDI",1,0,centroide[2],centroide[1]))
+ubicaciones[nrow(ubicaciones),]
