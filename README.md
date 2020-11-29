@@ -19,6 +19,9 @@ El reto para los participantes en **México** es de **logística**, con el objet
 
 1. El output requerido completo.csv​
 
+Formato requerido de entrega 
+![entregable](img/test-dataset.png){width=40%}
+
 > [Los resultados se encuentran en este link](https://github.com/vcuspinera/brewing-datacup_OrozCuspi/blob/main/data/results.csv)
 
 2. Código completo de la construcción de la solución (únicamente R o Python – no evaluaremos códigos en software comerciales).link de github​
@@ -28,6 +31,3 @@ El reto para los participantes en **México** es de **logística**, con el objet
 3. Una presentación a detalle de la metodología usada para resolver el problema, el modelo aplicado,  consideraciones y resultados obtenidos. (Máximo 5 diapositivas).​
 
 > La presentación se encuentra en [este link](https://github.com/vcuspinera/brewing-datacup_OrozCuspi/blob/main/doc/Brewing%20Data%20Cup%202020%20OrozCuspi%20Data_MX.pptx).
-
-![entregable](img/test-dataset.png)
-
