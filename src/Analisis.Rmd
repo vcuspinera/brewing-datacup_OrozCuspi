@@ -50,7 +50,7 @@ data2 = data
 # QUITAR LOS SIGUIENTES RENGLONES
 # data2$id_unico <- paste0("id_", data2$Id_Cliente)
 data2$id_unico <- as.character(data2$Id_Cliente)
-data2 <- data2[(nrow(data2)-1000+1):nrow(data2), ]
+# data2 <- data2[(nrow(data2)-1000+1):nrow(data2), ]
 ```
 
 
@@ -112,26 +112,26 @@ for (i in 1:round(viajes/6, 0)){
   # df %>% filter(values == min(values)) %>% head(1)
   next_ubica <- df %>% filter(values == min(values)) %>% head(1)
   ruta[[length(ruta)+1]] <- next_ubica$names
-  
-  
-  
-  # # fragmento de matriz de distancias
-  # matriz_dist[(nrow(data2)-30):nrow(data2), (nrow(data2)-30):nrow(data2)]
-  
-  #   [1] "46.1"   "3585.1" "3547.1" "389.1"  "197.1"  "3408.1" "93.2"   "3540.1" "567.2"  "397.2" 
-  # [11] "158.1"  "3367.1"
+
 }
 
-ruta1 <- ruta
-list(ruta1)
+ruta1 <- as.numeric(ruta)
+ruta1
 ```
 
 ```{r}
-# # cuadro_result <- data.frame()
-# left <- data$Id_Cliente
-# # c_1 <- 
+# cuadro_result <- data.frame()
+left <- data$Id_Cliente
+# D1 <-
 # left[data$Id_Cliente == ruta1]
+# left == ruta1
 
+D1 <- left %in% ruta1
+D1 <- 1*D1
+
+results <- data.frame(left, D1)
+results %>% head()
+write.csv(results, "../data/results.csv", row.names=FALSE)
 ```
 
 ## Referencias
