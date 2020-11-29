@@ -1,21 +1,21 @@
-install.packages("ggmap")
-install.packages("Imap")
-install.packages("gmapsdistance")
+# install.packages("ggmap")
+# install.packages("Imap")
+# install.packages("gmapsdistance")
 
-set.api.key("MY-GOOGLE-MAPS-API-KEY")
+# set.api.key("MY-GOOGLE-MAPS-API-KEY")
 
 
-setwd("D:/Mis Documentos/Consultoria/15. Hackaton/Modelo")
+# setwd("D:/Mis Documentos/Consultoria/15. Hackaton/Modelo")
 
 library(readr)
 library(dplyr)
 library(tidyverse)
-library(rpivotTable) 
+library(rpivotTable)
 library(ggmap)
 library(Imap)
 library(gmapsdistance)
 
-ubicaciones_orig <- read_csv("ubicaciones.csv")
+ubicaciones_orig <- read_csv("data/ubicaciones.csv")
 str(ubicaciones_orig)
 View(ubicaciones_orig)
 

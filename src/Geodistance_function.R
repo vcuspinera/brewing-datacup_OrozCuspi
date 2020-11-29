@@ -1,17 +1,18 @@
-library(Imap)
+library(geosphere)
 
-my_matrix <- matrix(0, nrow = nrow(data), ncol = nrow(data))
-
+#' Distancia por georeferenciación
+#'
+#' @param georef 2-column vector con longitud y latitud
+#'
+#' @return matriz de distancias geodesicas en km
+#'
+#' @examples geo_distance(bd_georref)
+#' 
 geo_distance <- function(georef) {
+	my_matrix <- matrix(0, nrow = nrow(georef), ncol = nrow(georef))
 	for (i in 1:nrow(georef)){
-		for (j in 1:nrow(georef)){
-			my_matrix[i, j] <- gdist(lon.1 = georef[i, 2],
-									 lat.1 = georef[i, 1],
-									 lon.2 = georef[j, 2],
-									 lat.2 = georef[j, 1],
-									 units="km")
-			# print(i)
+		my_matrix[i, ] <- distGeo(georef, georef[i, ], 
+								  a=6378137, f=1/298.257223563)
 		}
-	}
-	return(my_matrix)
+	return(my_matrix / 1000)
 }

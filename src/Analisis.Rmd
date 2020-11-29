@@ -20,8 +20,9 @@ Inicialmente cargamos librerías y base de datos.
 # load libraries
 library(tidyverse)
 library(ggrepel)
-# library(GA)
+library(GA)
 library(Imap)
+library(geosphere)
 source("Geodistance_function.R")
 
 # load database
@@ -29,29 +30,55 @@ data <- read.csv("../data/ubicaciones.csv")
 data %>% head()
 ```
 
-Calculamos distancias entre puntos
+Repetimos los renglones n veces la 'Frecuencia' correspondiente.
 ```{r}
-# distancias <- dist()
-	#dist(data[ , 2:3], upper = T, diag = T) %>% as.matrix()
-# distancias
-# data[,5:6]
-# gdist(lon.1 =-98.21238, 
-      # lat.1 =20.50605, 
-      # lon.2 =-98.22125, 
-      # lat.2 =20.45813, 
-      # units="nm")
+data2 = data.frame()
+for (i in 1:3){
+  for (j in 1:i){
+    aux <- data %>% filter(Frecuencia == i)
+    aux$repetition <- j
+    data2 <- rbind(data2, aux)
+# data_freq2 <- data %>% filter(Frecuencia == 2)
+# data_freq3 <- data %>% filter(Frecuencia == 3)
+# data2 <- rbind(data_freq1, data_freq2, data_freq2, data_freq3, data_freq3, data_freq3)
+# data2
+  }
+}
 
-# data[ , 5:6]
-# gdist.total(data[ , 5:6], units = "km", segments = TRUE, digits = 10)
-# dist(data[1:8, 5:6], method = "euclidean", diag = TRUE, upper = TRUE)
-# gdist(data[1 , 5], data[1 , 6], data[2 , 5], data[2 , 6], units = "km", a = 6378137.0, b = 6356752.3142, verbose = FALSE)
+data2 %>% filter(Id_Cliente==171)
 
 
+```
 
-# función pre-hecha
-xxx <- geo_distance(data[ , 5:6])
-xxx[1:8, 1:8]
+Calculamos el centroide, suponiendo que esa es la ubicación del Centro de Distribución. El centroide se calcula a partir de Longitud/ Latitud
+```{r centroide}
+# data[,c("lon","lat")]
 
+ubicaciones.coord<-data2[,c("lon","lat")]
+centroide <- centroid(ubicaciones.coord)
+centroide
+
+data2 <- rbind(data2, c(9999,"CEDI",1,0,centroide[2],centroide[1]))
+data2[nrow(data2),]
+```
+
+Calculamos distancias entre clientes
+```{r distancias}
+latitud = data2[ , 5]
+longitud = data2[ , 6]
+
+matriz_dist <- geo_distance( data.frame(longitud, latitud) )
+
+# añadir penalización
+matriz_dist[matriz_dist == 0 ] <- 20* max(matriz_dist)
+```
+
+```{r visualizar matriz distancias}
+## fragmento de matriz de distancias
+# matriz_dist[(nrow(data2)-30):nrow(data2), (nrow(data2)-30):nrow(data2)]
+```
+
+```{r algoritmos geneticos}
 
 ```
 
