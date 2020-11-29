@@ -33,23 +33,31 @@ data %>% head()
 
 Repetimos los renglones n veces la 'Frecuencia' correspondiente.
 ```{r}
-data2 = data.frame()
-for (i in 1:3){
-  for (j in 1:i){
-    aux <- data %>% filter(Frecuencia == i)
-    aux$repetition <- j
-    data2 <- rbind(data2, aux)
-  }
-}
+# # (Esto no funcionó porque se repiten en una misma ruta algunos algunos puntos: "46.1"   "168.1"  "46.2"   "168.2"  "46.3"   "67.1"   "3299.1" "67.2"   "3579.1" "3286.1"):
+# data2 = data.frame()
+# for (i in 1:3){
+#   for (j in 1:i){
+#     aux <- data %>% filter(Frecuencia == i)
+#     aux$repetition <- j
+#     data2 <- rbind(data2, aux)
+#   }
+# }
 
-data2$id_unico <- paste0(data2$Id_Cliente, ".", data2$repetition)
-data2
+data2 = data
+
+# data2$id_unico <- paste0(data2$Id_Cliente, ".", data2$repetition)
+# data2
+# QUITAR LOS SIGUIENTES RENGLONES
+# data2$id_unico <- paste0("id_", data2$Id_Cliente)
+data2$id_unico <- as.character(data2$Id_Cliente)
+data2 <- data2[(nrow(data2)-1000+1):nrow(data2), ]
 ```
+
 
 Calculamos el centroide, suponiendo que esa es la ubicación del Centro de Distribución. El centroide se calcula a partir de Longitud/ Latitud
 ```{r centroide}
 # data[,c("lon","lat")]
-
+# 
 # ubicaciones.coord<-data2[,c("lon","lat")]
 # centroide <- centroid(ubicaciones.coord)
 # centroide
@@ -69,112 +77,61 @@ matriz_dist <- geo_distance( data.frame(longitud, latitud) )
 
 # añadir penalización
 matriz_dist[matriz_dist == 0 ] <- 20* max(matriz_dist)
+
+# nombrar renglones y columnas
+rownames(matriz_dist) <- data2$id_unico
+colnames(matriz_dist) <- data2$id_unico
+
+# matriz_dist[]
 ```
 
 ```{r visualizar matriz distancias, echo = FALSE}
-## fragmento de matriz de distancias
-# matriz_dist[(nrow(data2)-30):nrow(data2), (nrow(data2)-30):nrow(data2)]
-```
-
-## Optimización
-
-### Algoritmos Genéticos
-
-```{r giant path}
-# Giant Path -----------
-# function by Argaadya, link:https://github.com/Argaadya/manufacturing/blob/master/Vehicle%20Routing%20Problem/script/nearest_a.R
-
-giant_path <- function(distance, demand){
-  
-  visited_spot <- NULL
-  vehicle_num <- 1
-  post <- 1:ncol(distance)
-  names(demand) <- 1:length(demand)
-  
-  # Randomly select initial spot
-  initial_spot <- sample(2:length(demand), 1)
-  
-  while (any(demand != 0)) {
-    
-    available_spot <- which(demand != 0)
-    # Calculate the distance to unvisited spot
-    initial_dist <- distance[ c(available_spot), initial_spot] 
-    initial_dist <- initial_dist[ which(names(initial_dist) != initial_spot)]
-    
-    visited_spot <- c(visited_spot, initial_spot)
-    demand[ initial_spot ] <- 0
-    
-    if ( length(initial_dist)>1) {
-      initial_spot <- which(initial_dist == min(initial_dist)) %>% names() %>% as.numeric()
-    } else {
-      initial_spot <- which(demand != 0)
-    }
-  }
-  
-  visited_spot <- c(1, visited_spot, 1)
-  names(visited_spot) <- NULL
-  total_distance <- embed(visited_spot, 2)[ , 2:1] %>% distance[.] %>% sum()
-  
-  result <- list(route = visited_spot,
-                 total_distance = total_distance)
-  return(result)
-}
-
-# Assign Vehicle -----------------
-
-assign_vehicle <- function(x, demand, capacity, distance){
-  
-  vehicle_load <- capacity
-  visited_spot <- NULL
-  vehicle_num <- 1
-  
-  for (i in x) {
-    
-    initial_spot <- i
-    
-    if (vehicle_load >= demand[i]) {
-      visited_spot <- c(visited_spot, initial_spot)
-      vehicle_load <- vehicle_load - demand[ initial_spot ]
-      
-    } else {
-      
-      # Go back to depot
-      vehicle_num <- vehicle_num + 1
-      vehicle_load <- capacity
-      visited_spot <- c(visited_spot, 1)
-      
-      # Revisit the spot 
-      visited_spot <- c(visited_spot, initial_spot)
-      vehicle_load <- vehicle_load - demand[ initial_spot ]
-    }
-    
-  }
-  
-  visited_spot <- c(visited_spot)
-  total_distance <- embed(visited_spot, 2)[ , 2:1] %>% distance[.] %>% sum()
-  
-  return(list(distance = total_distance,
-              route = visited_spot,
-              num_vehicle = vehicle_num))
-}
-
-```
-
-```{r AG}
 # data2
-# matriz_dist
-suggestion_route <- matrix(ncol = ncol(data2), nrow = 100)
+num_rutas <- 6
+vol_prom <- sum(data2$Vol_Entrega) / num_rutas # volumen promedio
+viajes <- sum(data2$Frecuencia) #total de viajes
+
+# inizilizar random
+set.seed(23)
+ruta <- sample(data2$id_unico, 1)
+
+# buscar vecinos más cercanos
+matriz_v2 <- matriz_dist
+for (i in 1:round(viajes/6, 0)){
+  last <- ruta[length(ruta)]
+
+  # remover
+  matriz_v2 <- subset(matriz_v2, select=-c(get(last)))
   
-for (i in 1:100) {
-  try_route <- giant_path(demand = data2$Vol_Entrega, distance =  matriz_dist)
-  suggestion_route[i, ] <- try_route$route[2:max(data2$Id_Cliente)] %>% as.numeric()
+  # seleccionar el siguiente punto con la minima distancia al último punto de la ruta
+  vals <- matriz_v2[last, ]
+  nams <- names(matriz_v2[last, ])
+  df <- data.frame(names = nams, values = vals)
+  rownames(df) <- 1:length(vals)
+  
+  # df %>% filter(values == min(values)) %>% head(1)
+  next_ubica <- df %>% filter(values == min(values)) %>% head(1)
+  ruta[[length(ruta)+1]] <- next_ubica$names
+  
+  
+  
+  # # fragmento de matriz de distancias
+  # matriz_dist[(nrow(data2)-30):nrow(data2), (nrow(data2)-30):nrow(data2)]
+  
+  #   [1] "46.1"   "3585.1" "3547.1" "389.1"  "197.1"  "3408.1" "93.2"   "3540.1" "567.2"  "397.2" 
+  # [11] "158.1"  "3367.1"
 }
 
-head(suggestion_route)
+ruta1 <- ruta
+list(ruta1)
 ```
 
 ```{r}
-data2
+# # cuadro_result <- data.frame()
+# left <- data$Id_Cliente
+# # c_1 <- 
+# left[data$Id_Cliente == ruta1]
+
 ```
 
 ## Referencias
