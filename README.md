@@ -20,9 +20,9 @@ El reto para los participantes en **México** es de **logística**, con el objet
 1. El output requerido completo.csv​
 
 Formato requerido de entrega 
-![entregable](img/test-dataset.png){width=40%}
+![entregable](img/test-dataset.png){width=50%}
 
-> [Los resultados se encuentran en este link](https://github.com/vcuspinera/brewing-datacup_OrozCuspi/blob/main/data/results.csv)
+> [Los resultados se encuentran en este link](https://github.com/vcuspinera/brewing-datacup_OrozCuspi/blob/main/data/results.csv).
 
 2. Código completo de la construcción de la solución (únicamente R o Python – no evaluaremos códigos en software comerciales).link de github​
 
